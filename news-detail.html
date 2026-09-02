@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>信宸成员资本企业嘉信立恒参与新大正推进资产重组</title>
+    <link rel="icon" href="photo_2026-09-02_13-27-54.jpg" type="image/png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            overflow-y: auto;
+            scrollbar-width: none; 
+            -ms-overflow-style: none; 
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 顶部导航栏 */
+        .navbar {
+            position: relative;
+            width: 100%;
+            height: 90px; 
+            display: flex;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1500px;
+            height: 100%;
+            padding: 0 clamp(20px, 3vw, 60px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0; 
+            background-color: rgba(255, 255, 255, 0.96); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: height 0.3s ease;
+            z-index: -1; 
+        }
+
+        .navbar:has(.has-dropdown:hover)::before {
+            height: 175px; 
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .real-logo {
+            height: 40px;
+            object-fit: contain;
+            filter: brightness(0.2); 
+            transition: filter 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: clamp(10px, 1.8vw, 35px);
+            align-items: center;
+            height: 100%;
+            flex-shrink: 0;
+        }
+
+        .nav-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item > a {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            color: #333333;
+            font-size: clamp(12px, 1vw, 15px);
+            white-space: nowrap;
+            opacity: 0.9;
+            transition: color 0.3s ease;
+        }
+
+        .navbar:has(.has-dropdown:hover) .nav-item > a {
+            color: #555555;
+            opacity: 1;
+        }
+
+        .navbar:has(.has-dropdown:hover) .nav-item > a:hover {
+            color: #000000;
+        }
+
+        .arrow {
+            font-size: 11px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .has-dropdown:hover .arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 65px; 
+            left: 0; 
+            min-width: 160px;
+            width: max-content; 
+            display: flex;
+            flex-direction: column;
+            gap: 12px; 
+            padding-top: 5px; 
+            background-color: transparent; 
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease;
+            z-index: 105;
+        }
+
+        .has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0; 
+            color: #666666 !important; 
+            text-decoration: none;
+            font-size: 14px;
+            white-space: nowrap;
+            line-height: 1.4; 
+            transition: color 0.2s ease;
+        }
+
+        .dropdown-menu a:hover {
+            color: #000000 !important; 
+        }
+
+        .lang-switch > a {
+            display: flex !important;
+            align-items: center !important;
+            white-space: nowrap !important;
+        }
+
+        .lang-switch {
+            margin-left: 5px;
+        }
+
+        /* 详情页主体排版 */
+        .detail-content-section {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 40px 120px 40px;
+        }
+
+        .article-title {
+            font-size: clamp(28px, 3.5vw, 42px);
+            font-weight: 400;
+            color: #222222;
+            line-height: 1.35;
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+        }
+
+        .article-banner-img {
+            width: 100%;
+            max-height: 600px;
+            overflow: hidden;
+            margin-bottom: 60px;
+            background-color: #f0f0f0;
+        }
+
+        .article-banner-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .article-text-body {
+            font-size: 16px;
+            line-height: 2.0;
+            color: #555555;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            text-align: justify;
+            margin-bottom: 50px;
+        }
+
+        .article-text-body p {
+            letter-spacing: 0.5px;
+        }
+
+        .article-footer-note {
+            font-size: 16px;
+            color: #555555;
+            margin-bottom: 60px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        /* 底部 Footer 板块样式 */
+        .footer-section {
+            width: 100%;
+            background-color: #555555;
+            color: #ffffff;
+            padding: 70px 0 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-container {
+            width: 100%;
+            max-width: 1550px;
+            padding: 0 60px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-logo-col img {
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-col h4 {
+            font-size: 15px;
+            font-weight: 500;
+            color: #ffffff;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .footer-col a {
+            color: #cccccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .footer-col a:hover {
+            color: #ffffff;
+        }
+
+        .footer-divider {
+            width: 100%;
+            max-width: 1430px;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 60px 0 30px 0;
+        }
+
+        .footer-bottom {
+            width: 100%;
+            max-width: 1550px;
+            padding: 0 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #aaaaaa;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-bottom-links a {
+            color: #aaaaaa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航栏 -->
+    <div class="hero-wrapper">
+        <header class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="https://www.trustarcapital.com/web/files/uploadimage/202408281356110.png" alt="信宸资本" class="real-logo">
+                </div>
+                
+                <nav class="nav-links">
+                    <div class="nav-item">
+                        <a href="index.html" data-zh="首页" data-en="Home">首页</a>
+                    </div>
+                    
+                    <div class="nav-item has-dropdown">
+                        <a href="#"><span data-zh="关于我们" data-en="About Us">关于我们</span> <span class="arrow">▾</span></a>
+                        <div class="dropdown-menu">
+                            <a href="about.html" data-zh="概述" data-en="Company Profile">概述</a>
+                            <a href="team.html" data-zh="团队" data-en="Team">团队</a>
+                            <a href="esg.html" data-zh="环境、社会及治理" data-en="ESG">环境、社会及治理</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item has-dropdown">
+                        <a href="#"><span data-zh="投资策略" data-en="Investment Strategy">投资策略</span> <span class="arrow">▾</span></a>
+                        <div class="dropdown-menu">
+                            <a href="main-funds.html" data-zh="信宸主基金" data-en="Trustar Main Funds">信宸主基金</a>
+                            <a href="growth-funds.html" data-zh="信宸成长基金" data-en="Trustar Growth Funds">信宸成长基金</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item has-dropdown">
+                        <a href="#"><span data-zh="投资组合企业" data-en="Portfolio">投资组合企业</span> <span class="arrow">▾</span></a>
+                        <div class="dropdown-menu">
+                            <a href="current-investments.html" data-zh="现有投资" data-en="Current Portfolio">现有投资</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item">
+                        <a href="news.html" data-zh="新闻和观点" data-en="News & Insights">新闻和观点</a>
+                    </div>
+                    
+                    <div class="nav-item">
+                        <a href="contact.html" data-zh="联系我们" data-en="Contact Us">联系我们</a>
+                    </div>
+                    
+                    <div class="nav-item has-dropdown lang-switch">
+                        <a href="#">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right: 5px;">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                            <span id="langText">EN</span> <span class="arrow">▾</span>
+                        </a>
+                        <div class="dropdown-menu" style="min-width: 80px;">
+                            <a href="#" onclick="switchLang('zh')">中文</a>
+                            <a href="#" onclick="switchLang('en')">English</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+    </div>
+
+    <!-- 文章详情正文区 -->
+    <main class="detail-content-section">
+        <h1 class="article-title" data-zh="信宸成员资本企业嘉信立恒参与新大正推进资产重组" data-en="Trustar Capital portfolio company Citic Services participates in New Grand Union restructuring">信宸成员资本企业嘉信立恒参与新大正推进资产重组</h1>
+
+        <!-- 顶部大图 -->
+        <div class="article-banner-img">
+            <img src="https://www.trustarcapital.com/web/files/uploadimage/202601271716330.jpg" alt="嘉信立恒大楼">
+        </div>
+
+        <!-- 详细正文段落 -->
+        <div class="article-text-body">
+            <p data-zh="（2026年1月27日）信宸资本（中信资本控股有限公司推出私募股权投资业务）与国内领先的物业管理企业新大正物业集团股份有限公司（股票代码：002968.SZ，以下简称“新大正”）宣布联合，新大正收购信宸资本成员企业嘉信立恒设施本次交易是信宸资本企业成员与A股上市公司开展重大资产重组的重要实践，也是物业管理和设施管理行业龙头企业整合的典型案例。本次交易尚待相关监管部门的最终深化。" data-en="(January 27, 2026) Trustar Capital (the private equity investment business launched by CITIC Capital Holdings Limited) and New Grand Union Property Group Co., Ltd. (Stock Code: 002968.SZ) announced a partnership...">（2026年1月27日）信宸资本（中信资本控股有限公司推出私募股权投资业务）与国内领先的物业管理企业新大正物业集团股份有限公司（股票代码：002968.SZ，以下简称“新大正”）宣布联合，新大正收购信宸资本成员企业嘉信立恒设施本次交易是信宸资本企业成员与A股上市公司开展重大资产重组的重要实践，也是物业管理和设施管理行业龙头企业整合的典型案例。本次交易尚待相关监管部门的最终深化。</p>
+
+            <p data-zh="新大正物业集团股份有限公司成立于1998年，专注于智慧城市公共空间与建筑设施的运营和管理，作为第三方专业物业服务企业，公司以差异化战略构建，以基础物业为主体，城市空间运营和创新服务两翼协同发展的三大版图，聚新大正拥有38,000多人，已服务全国超过26个省（直辖市）、100多个城市，成为国内公建领域布局最广的物业集团化企业。" data-en="New Grand Union Property Group Co., Ltd., founded in 1998, focuses on the operation and management of smart city public spaces and building facilities...">新大正物业集团股份有限公司成立于1998年，专注于智慧城市公共空间与建筑设施的运营和管理，作为第三方专业物业服务企业，公司以差异化战略构建，以基础物业为主体，城市空间运营和创新服务两翼协同发展的三大版图，聚新大正拥有38,000多人，已服务全国超过26个省（直辖市）、100多个城市，成为国内公建领域布局最广的物业集团化企业。</p>
+
+            <p data-zh="信宸资本2018年起通过并购方式投资了七家设施管理行业企业，并通过建立平台公司嘉信立恒，整合设施各被投企业的管理业务，有效实现投后良好，显着提升了运营效率与业绩水平。目前，嘉信立恒已从区域性企业成长为业务覆盖全国32个省（含香港）、200多个城市的全国性企业，服务超过2,700家客户，管理项目点超过3,800个，成就了国内最大的零碳IFM独立综合设施管理企业之列。" data-en="Since 2018, Trustar Capital has invested in seven facility management enterprises through acquisitions and established the platform company Citic Services...">信宸资本2018年起通过并购方式投资了七家设施管理行业企业，并通过建立平台公司嘉信立恒，整合设施各被投企业的管理业务，有效实现投后良好，显着提升了运营效率与业绩水平。目前，嘉信立恒已从区域性企业成长为业务覆盖全国32个省（含香港）、200多个城市的全国性企业，服务超过2,700家客户，管理项目点超过3,800个，成就了国内最大的零碳IFM独立综合设施管理企业之列。</p>
+
+            <p data-zh="新大正表示：“本次与嘉信立恒的资产重组，是新大正战略升级的重要里程碑，标志着公司业务领域从物业管理（PM）延展至综合设施管理（IFM）。我们很高兴能与信宸资本合作，作为国内同步并购基金，信宸资本通过并购重组为上市公司实现产业升级、服务实体经济高质量发展提供了专业助力。本次不仅是资产整合，更是能力整合、战略协同与价值提升。未来，新大正将继续秉持‘让城市更美好’的企业使命，这相当于信宸服务与嘉信立恒，推动资本管理行业的迭代升级。”" data-en="New Grand Union stated: 'This asset restructuring with Citic Services is a significant milestone in our strategic upgrade...'">新大正表示：“本次与嘉信立恒的资产重组，是新大正战略升级的重要里程碑，标志着公司业务领域从物业管理（PM）延展至综合设施管理（IFM）。我们很高兴能与信宸资本合作，作为国内同步并购基金，信宸资本通过并购重组为上市公司实现产业升级、服务实体经济高质量发展提供了专业助力。本次不仅是资产整合，更是能力整合、战略协同与价值提升。未来，新大正将继续秉持‘让城市更美好’的企业使命，这相当于信宸服务与嘉信立恒，推动资本管理行业的迭代升级。”</p>
+
+            <p data-zh="信宸资本和嘉信立恒方面表示：“信宸资本坚定看好中国物业管理及设施管理行业的长期发展。新大正作为行业龙头，具备领先优势和巨大潜力。嘉信立恒与新大正的深度合作，愿双方带来和谐发展的新机遇，进一步巩固和发展其在行业中的领先地位，将重塑替代性的行业标杆企业。信宸资本将继续支持嘉信立恒发展，并积极响应国家推动上市公司重组并购的战略部署，充分发挥并购基金的专业优势，推动资本市场和实体经济高质量发展。”" data-en="Trustar Capital and Citic Services stated: 'Trustar Capital is firmly optimistic about the long-term development of China's property and facility management industry...'">信宸资本和嘉信立恒方面表示：“信宸资本坚定看好中国物业管理及设施管理行业的长期发展。新大正作为行业龙头，具备领先优势和巨大潜力。嘉信立恒与新大正的深度合作，愿双方带来和谐发展的新机遇，进一步巩固和发展其在行业中的领先地位，将重塑替代性的行业标杆企业。信宸资本将继续支持嘉信立恒发展，并积极响应国家推动上市公司重组并购的战略部署，充分发挥并购基金的专业优势，推动资本市场和实体经济高质量发展。”</p>
+        </div>
+
+        <div class="article-footer-note" data-zh="- 完成 -" data-en="- End -">- 完成 -</div>
+
+        <!-- 背景介绍段落 -->
+        <div class="article-text-body">
+            <p data-zh="<strong>关于新大正</strong><br>新大正物业集团股份有限公司成立于1998年，专注于智慧城市公共空间与建筑设施的运营和管理，作为第三方专业物业服务企业，公司以差异化战略构建，以基础物业为主体，城市空间运营和创新服务两翼协同发展的三大版图，聚新大正拥有38,000多人，已服务全国超过26个省（直辖市）、100多个城市，成为国内公建领域布局最广的物业集团化企业。" data-en="<strong>About New Grand Union</strong><br>New Grand Union Property Group Co., Ltd. was founded in 1998, focusing on the operation and management of smart city public spaces and building facilities..."><strong>关于新大正</strong><br>新大正物业集团股份有限公司成立于1998年，专注于智慧城市公共空间与建筑设施的运营和管理，作为第三方专业物业服务企业，公司以差异化战略构建，以基础物业为主体，城市空间运营和创新服务两翼协同发展的三大版图，聚新大正拥有38,000多人，已服务全国超过26个省（直辖市）、100多个城市，成为国内公建领域布局最广的物业集团化企业。</p>
+
+            <p data-zh="<strong>关于嘉信立恒</strong><br>嘉信立恒集团由信宸投资成立，公司深耕IFM综合设施管理领域近30年，全力打造中国领先的零碳IFM服务商。集团旗下拥有资本杜斯曼、安锐盟、斯卡伊、道威、朗杰、安远、嘉信天纳等优质综合设施管理品牌。嘉信立恒可向客户提供驻场综合服务、绿色能源管理及大型活动三大IFM服务模块，可帮助客户打造、绿色、舒适的工作空间，高效提升资产价值，支持企业核心业务发展。我们的业务现已覆盖全国32个省（含香港），服务覆盖200+城市，自有员工30,000+人，合作客户数2,700+，服务点3,800+，服务面积超2亿平方米。" data-en="<strong>About Citic Services</strong><br>Citic Services Group was established by Trustar Capital, deeply cultivating the IFM integrated facility management field for nearly 30 years..."><strong>关于嘉信立恒</strong><br>嘉信立恒集团由信宸投资成立，公司深耕IFM综合设施管理领域近30年，全力打造中国领先的零碳IFM服务商。集团旗下拥有资本杜斯曼、安锐盟、斯卡伊、道威、朗杰、安远、嘉信天纳等优质综合设施管理品牌。嘉信立恒可向客户提供驻场综合服务、绿色能源管理及大型活动三大IFM服务模块，可帮助客户打造、绿色、舒适的工作空间，高效提升资产价值，支持企业核心业务发展。我们的业务现已覆盖全国32个省（含香港），服务覆盖200+城市，自有员工30,000+人，合作客户数2,700+，服务点3,800+，服务面积超2亿平方米。</p>
+
+            <p data-zh="<strong>关于信宸资本</strong><br>信宸（中信资本控股有限公司推出的私募股权投资业务）关注全球的控股收购机会，已在中国、日本、美国欧洲和等地完成超过100项投资，目前管理资金超过100亿美元。<br>信宸资本成立于2002年，是一家主攻其他类投资的投资管理和顾问公司。公司通过超过100支基金和投资产品，为财政部的国际机构投资者管理超过140亿美元的资产，核心业务包括私募股权投资、不动产投资、结构融资、资产管理及特殊机会投资。中信资本目前在全球投资10个板块超过300家企业，被投资公司员工人数超过50万名。" data-en="<strong>About Trustar Capital</strong><br>Trustar Capital focuses on global buyout opportunities, having completed over 100 investments in China, Japan, the US, and Europe, managing over $10 billion in committed capital..."><strong>关于信宸资本</strong><br>信宸（中信资本控股有限公司推出的私募股权投资业务）关注全球的控股收购机会，已在中国、日本、美国欧洲和等地完成超过100项投资，目前管理资金超过100亿美元。<br>信宸资本成立于2002年，是一家主攻其他类投资的投资管理和顾问公司。公司通过超过100支基金和投资产品，为财政部的国际机构投资者管理超过140亿美元的资产，核心业务包括私募股权投资、不动产投资、结构融资、资产管理及特殊机会投资。中信资本目前在全球投资10个板块超过300家企业，被投资公司员工人数超过50万名。</p>
+        </div>
+    </main>
+
+    <!-- 底部 Footer 板块 -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-logo-col">
+                <img src="https://www.trustarcapital.com/web/files/uploadimage/202408281356110.png" alt="信宸资本">
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="首页" data-en="Home">首页</h4>
+                <a href="index.html" data-zh="简介" data-en="Overview">简介</a>
+                <a href="#" data-zh="代表性投资" data-en="Representative Investments">代表性投资</a>
+                <a href="#" data-zh="最新消息" data-en="Latest News">最新消息</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="关于我们" data-en="About Us">关于我们</h4>
+                <a href="about.html" data-zh="概述" data-en="Profile">概述</a>
+                <a href="team.html" data-zh="团队" data-en="Our Team">团队</a>
+                <a href="esg.html" data-zh="环境、社会及治理" data-en="ESG">环境、社会及治理</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="投资策略" data-en="Investment Strategy">投资策略</h4>
+                <a href="main-funds.html" data-zh="信宸主基金" data-en="Trustar Capital Partners">Trustar Capital Partners</a>
+                <a href="growth-funds.html" data-zh="信宸成长基金" data-en="Trustar Growth Partners">Trustar Growth Partners</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="投资组合企业" data-en="Portfolio">投资组合企业</h4>
+                <a href="current-investments.html" data-zh="现有投资" data-en="Current Investments">现有投资</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="新闻和观点" data-en="News & Insights">新闻和观点</h4>
+                <a href="news.html" data-zh="新闻和观点" data-en="News & Insights">新闻和观点</a>
+            </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+            <span data-zh="© 2024 Trustar Capital Inc." data-en="© 2024 Trustar Capital Inc.">© 2024 Trustar Capital Inc.</span>
+            <div class="footer-bottom-links">
+                <a href="#" data-zh="版权所有" data-en="Copyright">版权所有</a>
+                <span>|</span>
+                <a href="#" data-zh="法律声明" data-en="Legal Disclaimer">法律声明</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+<script>
+    // 1. 禁用右键菜单
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault(); // 阻止默认的右键菜单弹出
+    });
+
+    // 2. 禁用 F12、Ctrl+Shift+I、Ctrl+Shift+C、Ctrl+U 等开发者快捷键
+    document.addEventListener('keydown', function (e) {
+        // 禁用 F12
+        if (e.key === 'F12' || e.keyCode === 123) {
+            e.preventDefault();
+            return false;
+        }
+        // 禁用 Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C (开发者工具)
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+            e.preventDefault();
+            return false;
+        }
+        // 禁用 Ctrl+U (查看网页源代码)
+        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+            e.preventDefault();
+            return false;
+        }
+        // 禁用 Ctrl+S (保存网页)
+        if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // 3. 进阶：检测开发者工具是否打开（如果打开则尝试通过死循环或控制台警告阻止调试，不过这一项慎用，有时会误伤正常用户）
+    setInterval(function() {
+        const check = window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160;
+        if (check) {
+            document.body.innerHTML = "<div style='display:flex;justify-content:center;align-items:center;height:100vh;font-size:24px;color:#333;'>检测到开发者工具已打开，为了保护版权，页面已锁定！</div>";
+        }
+    }, 1000);
+</script>
+<script>
+    function switchLang(lang) {
+        const elements = document.querySelectorAll('[data-zh]');
+        
+        elements.forEach(el => {
+            if (lang === 'en') {
+                if (el.getAttribute('data-en')) el.innerText = el.getAttribute('data-en');
+            } else {
+                if (el.getAttribute('data-zh')) el.innerText = el.getAttribute('data-zh');
+            }
+        });
+
+        const langText = document.getElementById('langText');
+        if (lang === 'en') {
+            langText.innerText = 'EN';
+        } else {
+            langText.innerText = '中文';
+        }
+        
+        localStorage.setItem('preferred_lang', lang);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('preferred_lang') || 'zh';
+        switchLang(savedLang);
+    });
+
+    document.addEventListener('wheel', function (event) {
+        if (event.ctrlKey) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+
+    window.addEventListener('keydown', function (event) {
+        if (event.ctrlKey && (event.key === '+' || event.key === '-' || event.key === '=' || event.key === '0')) {
+            event.preventDefault();
+        }
+    });
+
+    document.addEventListener('gesturestart', function (event) {
+        event.preventDefault();
+    });
+</script>
+</html>
