@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mubadala Participates as Strategic Shareholder in Loscam - Trustar Capital</title>
+    <link rel="icon" href="photo_2026-09-02_13-27-54.jpg" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            overflow-y: auto;
+            scrollbar-width: none; 
+            -ms-overflow-style: none; 
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 顶部导航栏样式 */
+        .navbar {
+            position: relative;
+            width: 100%;
+            height: 90px; 
+            display: flex;
+            justify-content: center;
+            z-index: 100;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1500px;
+            height: 100%;
+            padding: 0 clamp(20px, 3vw, 60px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .real-logo {
+            height: 40px;
+            object-fit: contain;
+            filter: brightness(0.2); 
+            transition: filter 0.3s ease;
+        }
+
+        /* 顶部右侧容器：包含独立的语言切换和悬停触发的三条横杆 */
+        .nav-right-container {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            height: 100%;
+        }
+
+        /* 独立的语言切换按钮 */
+        .external-lang-switch {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .external-lang-switch > a {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #333333;
+            font-size: 14px;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .external-lang-switch:hover > a {
+            opacity: 1;
+        }
+
+        .external-lang-switch .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: rgba(30, 30, 30, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 4px;
+            padding: 8px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            min-width: 90px;
+            z-index: 1002;
+        }
+
+        .external-lang-switch:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .external-lang-switch .dropdown-menu a {
+            color: #cccccc !important;
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .external-lang-switch .dropdown-menu a:hover {
+            color: #ffffff !important;
+        }
+
+        /* 菜单触发区域（包含三条横杆） */
+        .menu-trigger-area {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        /* 汉堡按钮样式 */
+        .hamburger-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger-btn span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #333333;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* 右侧滑出抽屉菜单：毛玻璃半透明效果 */
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 240px; 
+            max-width: 75%;
+            height: 100vh;
+            background-color: rgba(40, 40, 40, 0.85); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-left: 30px;
+            gap: 15px;
+            transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 1000;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+            display: flex;
+        }
+
+        .menu-trigger-area:hover .nav-links {
+            right: 0;
+        }
+
+        .nav-links .nav-item {
+            height: auto !important;
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-links .nav-item > a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-decoration: none;
+            color: #ffffff !important;
+            font-size: 15px !important;
+            white-space: nowrap;
+            opacity: 0.9;
+            transition: color 0.3s ease, opacity 0.3s ease;
+            padding-right: 20px;
+        }
+
+        .nav-links .arrow {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links .dropdown-menu {
+            position: static !important;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            background-color: transparent !important;
+            box-shadow: none !important;
+            padding-left: 15px;
+            display: flex !important;
+            flex-direction: column;
+            transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease, padding 0.3s ease;
+        }
+
+        .nav-links .nav-item:hover .dropdown-menu {
+            max-height: 200px;
+            opacity: 1 !important;
+            visibility: visible !important;
+            padding-top: 6px;
+            padding-bottom: 6px;
+            gap: 6px;
+        }
+
+        .nav-links .nav-item:hover .arrow {
+            transform: rotate(180deg);
+        }
+
+        .nav-links .dropdown-menu a {
+            display: block;
+            padding: 0; 
+            color: #dddddd !important; 
+            text-decoration: none;
+            font-size: 13px !important;
+            white-space: nowrap;
+            line-height: 1.4; 
+            transition: color 0.2s ease;
+        }
+
+        .nav-links .dropdown-menu a:hover {
+            color: #ffffff !important; 
+        }
+
+        /* 详情页主体排版 */
+        .detail-content-section {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 40px 120px 40px;
+        }
+
+        .article-title {
+            font-size: clamp(28px, 3.5vw, 42px);
+            font-weight: 400;
+            color: #222222;
+            line-height: 1.35;
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+        }
+
+        .article-banner-img {
+            width: 100%;
+            max-height: 600px;
+            overflow: hidden;
+            margin-bottom: 60px;
+            background-color: #f0f0f0;
+        }
+
+        .article-banner-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .article-text-body {
+            font-size: 16px;
+            line-height: 2.0;
+            color: #555555;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            text-align: justify;
+            margin-bottom: 50px;
+        }
+
+        .article-text-body p {
+            letter-spacing: 0.5px;
+        }
+
+        /* 独立小标题样式 */
+        .section-sub-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #222222;
+            margin-top: 20px;
+            margin-bottom: -15px;
+            letter-spacing: 1px;
+        }
+
+        .article-footer-note {
+            font-size: 16px;
+            color: #555555;
+            margin-bottom: 60px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        /* 底部悬浮圆角半透明磨砂横栏样式 */
+        .fixed-bottom-bar {
+            position: fixed;
+            bottom: 25px; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1240px; 
+            max-width: 92%;
+            background: rgba(3, 5, 10, 0.75); 
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px);
+            color: #ffffff;
+            padding: 14px 35px;
+            border-radius: 50px; 
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); 
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fixed-bottom-bar:hover {
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+            background: rgba(22, 49, 92, 0.85); 
+        }
+
+        .fixed-bottom-content {
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.5;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+
+        body {
+            padding-bottom: 90px; 
+        }
+
+        /* 底部 Footer 板块样式 */
+        .footer-section {
+            width: 100%;
+            background-color: #555555;
+            color: #ffffff;
+            padding: 70px 0 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-container {
+            width: 100%;
+            max-width: 1550px;
+            padding: 0 60px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-logo-col img {
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-col h4 {
+            font-size: 15px;
+            font-weight: 500;
+            color: #ffffff;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .footer-col a {
+            color: #cccccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .footer-col a:hover {
+            color: #ffffff;
+        }
+
+        .footer-divider {
+            width: 100%;
+            max-width: 1430px;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 60px 0 30px 0;
+        }
+
+        .footer-bottom {
+            width: 100%;
+            max-width: 1550px;
+            padding: 0 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #aaaaaa;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-bottom-links a {
+            color: #aaaaaa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #ffffff;
+        }
+
+        /* 移动端自适应适配优化 */
+        @media screen and (max-width: 768px) {
+            .navbar {
+                height: 70px;
+            }
+            .nav-container {
+                padding: 0 15px;
+            }
+            .detail-content-section {
+                padding: 40px 20px 20px 20px;
+            }
+            .article-title {
+                font-size: 24px !important;
+                margin-bottom: 30px !important;
+            }
+            .fixed-bottom-bar {
+                width: 92% !important;
+                left: 4% !important;
+                transform: none !important;
+                bottom: 15px !important;
+                padding: 10px 15px !important;
+            }
+            .fixed-bottom-content {
+                font-size: 11px !important;
+            }
+            .footer-container {
+                grid-template-columns: 1fr !important;
+                gap: 30px !important;
+                padding: 0 20px !important;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                padding: 0 20px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航栏 -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="location.href='index.html'">
+                <img src="https://www.trustarcapital.com/web/files/uploadimage/202408281356110.png" alt="Trustar Capital" class="real-logo">
+            </div>
+            
+            <div class="nav-right-container">
+                <!-- 独立的语言切换按钮 -->
+                <div class="external-lang-switch">
+                    <a href="#">
+                        <span id="langText">EN</span> <span style="font-size:10px;">▾</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="#" onclick="switchLang('en')">English</a>
+                        <a href="#" onclick="switchLang('zh')">中文 (Chinese)</a>
+                    </div>
+                </div>
+
+                <!-- 悬停触发的侧边栏菜单 -->
+                <div class="menu-trigger-area">
+                    <div class="hamburger-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <nav class="nav-links">
+                        <div class="nav-item">
+                            <a href="index.html" data-zh="首页" data-en="Home">Home</a>
+                        </div>
+                        
+                        <div class="nav-item has-dropdown">
+                            <a href="#"><span data-zh="关于我们" data-en="About Us">About Us</span> <span class="arrow">▾</span></a>
+                            <div class="dropdown-menu">
+                                <a href="about.html" data-zh="概述" data-en="Company Profile">Company Profile</a>
+                                <a href="team.html" data-zh="团队" data-en="Team">Team</a>
+                                <a href="esg.html" data-zh="环境、社会及治理" data-en="ESG">ESG</a>
+                            </div>
+                        </div>
+
+                        <div class="nav-item has-dropdown">
+                            <a href="#"><span data-zh="投资策略" data-en="Investment Strategy">Investment Strategy</span> <span class="arrow">▾</span></a>
+                            <div class="dropdown-menu">
+                                <a href="main-funds.html" data-zh="信宸主基金" data-en="Trustar Main Funds">Trustar Main Funds</a>
+                                <a href="growth-funds.html" data-zh="信宸成长基金" data-en="Trustar Growth Funds">Trustar Growth Funds</a>
+                            </div>
+                        </div>
+
+                        <div class="nav-item has-dropdown">
+                            <a href="#"><span data-zh="投资组合企业" data-en="Portfolio">Portfolio</span> <span class="arrow">▾</span></a>
+                            <div class="dropdown-menu">
+                                <a href="current-investments.html" data-zh="现有投资" data-en="Current Portfolio">Current Portfolio</a>
+                            </div>
+                        </div>
+
+                        <div class="nav-item">
+                            <a href="news.html" data-zh="新闻和观点" data-en="News & Insights">News & Insights</a>
+                        </div>
+                        
+                        <div class="nav-item">
+                            <a href="contact.html" data-zh="联系我们" data-en="Contact Us">Contact Us</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 文章详情正文区 -->
+    <main class="detail-content-section">
+        <h1 class="article-title" data-zh="穆巴达拉参与信宸资本、方源资本及中国外运成为路凯国际战略股东" data-en="Mubadala participates as strategic shareholder in Loscam alongside Trustar Capital, FountainVest and Sinotrans">Mubadala participates as strategic shareholder in Loscam alongside Trustar Capital, FountainVest and Sinotrans</h1>
+
+        <!-- 顶部大图 -->
+        <div class="article-banner-img">
+            <img src="https://www.trustarcapital.com/web/files/uploadimage/202510231251160.jpg" alt="Loscam Banner">
+        </div>
+
+        <!-- 详细正文段落 -->
+        <div class="article-text-body">
+            <p data-zh="（北京/香港，10月22日）穆巴达拉投资公司（以下简称“穆巴达拉”）、信宸资本、方源资本及中国外运股份有限公司（以下简称“中国外运”）今日联合声明，已完成对路凯国际控股有限公司（以下简称“路凯国际”）的股权转让交易。根据2025年6月26日中国外运股份有限公司公告，中国外运子公司招商船企计划将其持有的路凯国际25%股权转让给穆巴达拉。所有交割条件及监管均批准均已完成。" data-en="(Beijing/Hong Kong, October 22) Mubadala Investment Company, Trustar Capital, FountainVest, and Sinotrans Limited jointly announced today the completion of the equity transfer transaction regarding Loscam International Holdings Limited.">(Beijing/Hong Kong, October 22) Mubadala Investment Company, Trustar Capital, FountainVest, and Sinotrans Limited jointly announced today the completion of the equity transfer transaction regarding Loscam International Holdings Limited.</p>
+
+            <p data-zh="交易完成后，穆巴达拉资本与信宸各持股30%，方源资本与中国外运分别持股20%。此次交易不仅引发了穆巴达拉在亚洲工业领域完成首笔联合控股投资，结束了全球投资者对亚洲供应链体系持续优化和长期增长潜力的信心，也促使路凯国际进入新的战略发展阶段。" data-en="Following the completion of the transaction, Mubadala Capital and Trustar will each hold 30%, while FountainVest and Sinotrans will each hold 20%. This transaction marks Mubadala's first joint buyout investment in the Asian industrial sector.">Following the completion of the transaction, Mubadala Capital and Trustar will each hold 30%, while FountainVest and Sinotrans will each hold 20%. This transaction marks Mubadala's first joint buyout investment in the Asian industrial sector.</p>
+
+            <p data-zh="作为亚太地区领先的物流集装器具循环共用服务商，路凯国际（Loscam）成立于1942年，总部位于香港，业务覆盖澳大利亚、新西兰、东南亚及大中华地区等13个亚太地区市场。公司为快消、零售及制造龙头企业提供符合可持续发展要求的物流包装设备循环共用解决方案，通过标准化货架、生鲜周转等产品，助力客户实现供应链增效与绿色转型。" data-en="As a leading provider of returnable logistics packaging pooling services in the Asia-Pacific region, Loscam was founded in 1942 and is headquartered in Hong Kong.">As a leading provider of returnable logistics packaging pooling services in the Asia-Pacific region, Loscam was founded in 1942 and is headquartered in Hong Kong.</p>
+
+            <p data-zh="全球托盘市场正呈现强劲增长，托盘业务在推动企业供应链降本增效、供应链安全和可持续发展方面发挥着重要作用。自动化、大数据和材料科学领域的创新，推动了托盘物流行业的发展和业务普及。" data-en="The global pallet market is showing strong growth, with pallet pooling playing a crucial role in helping enterprises reduce costs, increase efficiency, and enhance supply chain security.">The global pallet market is showing strong growth, with pallet pooling playing a crucial role in helping enterprises reduce costs, increase efficiency, and enhance supply chain security.</p>
+
+            <p data-zh="中国外运副总经理、董事会秘书、总法律顾问（首席合规官）李世基础表示：“穆巴达拉的加入激起了国际化的发展迈入新阶段，股东层面的国际化、信心将推动公司拥有更加清晰的全球视野、顶尖的资本纽带和创新动能。运相信，本次资本合作将更多有利于路凯国际拓展全球市场，新高效持续加工物流包装设备领域合作范式。我们也始终对路凯国际充满信心，未来将切实支持路凯国际高质量发展，为构建畅通的全球供应链贡献外力力量。”" data-en="Li Shiji, Vice General Manager and Board Secretary of Sinotrans, stated: 'The addition of Mubadala marks a new stage of internationalization.'">Li Shiji, Vice General Manager and Board Secretary of Sinotrans, stated: 'The addition of Mubadala marks a new stage of internationalization.'></p>
+
+            <p data-zh="穆巴达拉亚洲区负责人穆罕默德·阿布达尔（Mohamed Albadr）表示：“我们很高兴与信宸资本、方源资本及中国外运补偿，共同支持路凯国际迈入发展的新阶段。我们看好路凯国际的潜力增长，尤其是在大中华区和东南亚市场，彼此循环共享业务仍具有清晰的提升空间。本次方向投资体现了我们对亚洲市场的长期承诺，以及与领先的本地伙伴在重点行业持续拓展布局的战略。”" data-en="Mohamed Albadr, Head of Asia at Mubadala, stated: 'We are very pleased to partner with Trustar Capital, FountainVest, and Sinotrans.'">Mohamed Albadr, Head of Asia at Mubadala, stated: 'We are very pleased to partner with Trustar Capital, FountainVest, and Sinotrans.'</p>
+
+            <p data-zh="穆巴达拉工业及企业服务投资负责人祖希尔·雷格拉吉（Zouhir Regragui）补充道：“托盘循环共用体系是现代物流中的关键组成部分，并在不同的经济周期中表现出高度的灵活性。我们已关注路凯国际多年，很高兴能投资这样一家基本面友谊、战略方向与我们高度契合的行业领军企业。我们期待借助丰富的管理经验及各合作伙伴的参与，进一步强化其市场先导措施。”" data-en="Zouhir Regragui, Head of Industrial and Business Services Investments at Mubadala, added: 'Pallet pooling is a key component of modern logistics.'">Zouhir Regragui, Head of Industrial and Business Services Investments at Mubadala, added: 'Pallet pooling is a key component of modern logistics.'</p>
+
+            <p data-zh="信宸资本合伙人王冉旭表示：“穆巴达拉的投资是路凯国际发展历程中的一个重要里程碑，掀起路凯国际资本赋能新阶段。路凯国际在推动全球物流与供应链的高效标准化发展方面发挥关键作用。信宸资本一直致力于赋能管理团队，支持公司战略开拓，并始终对此发展前景充满信心。未来我们将继续与其他股东和电子商务，加速物流包装设备的共享循环，推进数字化升级，持续提升企业的竞争力，也为物流行业包装标准化和效率提升贡献推动力。”" data-en="Wang Ranxu, Partner at Trustar Capital, stated: 'Mubadala's investment is an important milestone in Loscam's development journey.'">Wang Ranxu, Partner at Trustar Capital, stated: 'Mubadala's investment is an important milestone in Loscam's development journey.'</p>
+
+            <p data-zh="方源董事总经理徐陈两人表示：“我们非常欢迎穆巴达拉对路凯国际的投资，物质公司未来的发展充满信心。我们确信路凯国际的增长潜力，特别是在大中华地区的托盘运输和租赁市场将进一步扩大。借助物流与供应链领域的专长和全球资源网络，方源资本将关注公司和各利益相关者，共同帮助公司在国际化、研发和销售等方面进一步提高资本，全面支持公司下一步发展。”" data-en="FountainVest Managing Directors stated: 'We warmly welcome Mubadala's investment in Loscam.'">FountainVest Managing Directors stated: 'We warmly welcome Mubadala's investment in Loscam.'</p>
+
+            <p data-zh="路凯国际总裁林锡麟表示：“穆巴达拉的投资为路凯团队、我们的客户及供应商开启了令人振奋的标志性新篇章。凭借穆巴达拉、信宸、方源资本和中外运的强强联合，我们有信心在亚太地区持续拓展设备共享和供应链创新。每一位投资者都为我们的业务注入了丰富的专业知识和强大的动力，确保我们在业务上不断创新、提升效率，并持续为我们成千上万的客户创造更高的价值。”" data-en="Andrew Law, President of Loscam, stated: 'Mubadala's investment opens an exciting and landmark new chapter for the Loscam team.'">Andrew Law, President of Loscam, stated: 'Mubadala's investment opens an exciting and landmark new chapter for the Loscam team.'</p>
+        </div>
+
+        <div class="article-footer-note" data-zh="- 完成 -" data-en="- End -">- End -</div>
+
+        <div class="article-text-body">
+            <h3 class="section-sub-title" data-zh="关于穆巴达拉" data-en="About Mubadala">About Mubadala</h3>
+            <p data-zh="穆巴达拉投资公司是一家主权投资，成立管理着全球范围内的信心投资组合，致力于为阿布扎比政府创造可持续的关系财务回报。穆巴达拉的投资组合覆盖六大洲广泛的行业及资产类别，资产规模达3,300亿美元。公司依托阿布扎比的专业能力与长期战略合作伙伴，不仅推动了投资的持续可持续发展，也为全球经济的信心及一体化贡献了力量。获取更多穆巴达拉信息，请访问机构：www.mubadala.com。" data-en="Mubadala Investment Company is a sovereign investor managing a global portfolio aimed at generating sustainable financial returns for the Government of Abu Dhabi.">Mubadala Investment Company is a sovereign investor managing a global portfolio aimed at generating sustainable financial returns for the Government of Abu Dhabi.</p>
+
+            <h3 class="section-sub-title" data-zh="关于信宸资本" data-en="About Trustar Capital">About Trustar Capital</h3>
+            <p data-zh="信宸（中信资本控股有限公司推出的私募股权投资业务）关注全球的控股收购机会，已在中国、日本、美国欧洲和等地完成超过100项投资，目前管理资金超过100亿美元。" data-en="Trustar Capital focuses on global buyout opportunities, having completed over 100 investments in China, Japan, the US, and Europe, managing over $10 billion in committed capital.">Trustar Capital focuses on global buyout opportunities, having completed over 100 investments in China, Japan, the US, and Europe, managing over $10 billion in committed capital.</p>
+
+            <h3 class="section-sub-title" data-zh="关于方源资本" data-en="About FountainVest">About FountainVest</h3>
+            <p data-zh="方源资本是亚洲领先的市场化独立运作的私募股权投资机构。方源资本专注于行业领军企业的长期投资，并与管理团队深度合作，为被投企业在战略、运营、财务和资本市场等方面提供帮助，推动企业成长，创造卓越价值。" data-en="FountainVest Partners is a leading independently operated private equity firm in Asia, focusing on long-term investments in industry leaders.">FountainVest Partners is a leading independently operated private equity firm in Asia, focusing on long-term investments in industry leaders.</p>
+
+            <h3 class="section-sub-title" data-zh="关于中国外运" data-en="About Sinotrans">About Sinotrans</h3>
+            <p data-zh="中国外运2003年2月13日在香港联合交易所上市，2019年1月18日在上海证券交易所上市，是“A+H”两地上市公司（股票代码：00598.HK, 601598.SH）。" data-en="Sinotrans Limited was listed on the Stock Exchange of Hong Kong on February 13, 2003, and on the Shanghai Stock Exchange on January 18, 2019.">Sinotrans Limited was listed on the Stock Exchange of Hong Kong on February 13, 2003, and on the Shanghai Stock Exchange on January 18, 2019.</p>
+
+            <h3 class="section-sub-title" data-zh="关于路凯国际" data-en="About Loscam">About Loscam</h3>
+            <p data-zh="路凯是供应链优化领域盛誉的物流包装设备循环共享解决方案服务商，多年来致力于为亚太地区13个地区客户开发优质、创新且符合环境可持续发展要求的解决方案。" data-en="Loscam is a leading provider of returnable packaging pooling solutions for supply chain optimization.">Loscam is a leading provider of returnable packaging pooling solutions for supply chain optimization.</p>
+        </div>
+    </main>
+
+    <!-- 全局固定底部横栏按钮（点击跳转到 contact.html） -->
+    <a href="contact.html" class="fixed-bottom-bar" style="text-decoration: none;">
+        <div class="fixed-bottom-content" 
+             data-zh="我们提供资金。如果您有项目、本地资源、劳动力或设施，我们诚邀合作，实现共同增长与成功。 —— 立即联系我们" 
+             data-en="We provide the capital. If you have a project, local resources, workforce, or facilities, we are open to partnership opportunities for mutual growth and success. —— Contact Us Now">
+             We provide the capital. If you have a project, local resources, workforce, or facilities, we are open to partnership opportunities for mutual growth and success. —— Contact Us Now
+        </div>
+    </a> 
+
+    <!-- 底部 Footer 板块 -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-logo-col">
+                <img src="https://www.trustarcapital.com/web/files/uploadimage/202408281356110.png" alt="Trustar Capital">
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="首页" data-en="Home">Home</h4>
+                <a href="index.html" data-zh="简介" data-en="Overview">Overview</a>
+                <a href="#" data-zh="代表性投资" data-en="Representative Investments">Representative Investments</a>
+                <a href="news.html" data-zh="最新消息" data-en="Latest News">Latest News</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="关于我们" data-en="About Us">About Us</h4>
+                <a href="about.html" data-zh="概述" data-en="Profile">Profile</a>
+                <a href="team.html" data-zh="团队" data-en="Our Team">Our Team</a>
+                <a href="esg.html" data-zh="环境、社会及治理" data-en="ESG">ESG</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="投资策略" data-en="Investment Strategy">Investment Strategy</h4>
+                <a href="main-funds.html" data-zh="信宸主基金" data-en="Trustar Capital Partners">Trustar Capital Partners</a>
+                <a href="growth-funds.html" data-zh="信宸成长基金" data-en="Trustar Growth Partners">Trustar Growth Partners</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="投资组合企业" data-en="Portfolio">Portfolio</h4>
+                <a href="current-investments.html" data-zh="现有投资" data-en="Current Investments">Current Investments</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="新闻和观点" data-en="News & Insights">News & Insights</h4>
+                <a href="news.html" data-zh="新闻和观点" data-en="News & Insights">News & Insights</a>
+            </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+            <span data-zh="© 2024 Trustar Capital Inc." data-en="© 2024 Trustar Capital Inc.">© 2024 Trustar Capital Inc.</span>
+            <div class="footer-bottom-links">
+                <a href="#" data-zh="版权所有" data-en="Copyright">Copyright</a>
+                <span>|</span>
+                <a href="#" data-zh="法律声明" data-en="Legal Disclaimer">Legal Disclaimer</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+<script>
+    // 1. 安全保护脚本（防右键/防调试）
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault(); 
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'F12' || e.keyCode === 123) {
+            e.preventDefault();
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+            e.preventDefault();
+            return false;
+        }
+        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+            e.preventDefault();
+            return false;
+        }
+        if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // 2. 语言切换逻辑
+    function switchLang(lang) {
+        const elements = document.querySelectorAll('[data-zh]');
+        
+        elements.forEach(el => {
+            if (lang === 'en') {
+                if (el.getAttribute('data-en')) el.innerText = el.getAttribute('data-en');
+            } else {
+                if (el.getAttribute('data-zh')) el.innerText = el.getAttribute('data-zh');
+            }
+        });
+
+        const langText = document.getElementById('langText');
+        if (langText) {
+            langText.innerText = lang === 'en' ? 'EN' : '中文';
+        }
+        
+        localStorage.setItem('preferred_lang', lang);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('preferred_lang') || 'en';
+        switchLang(savedLang);
+    });
+
+    document.addEventListener('wheel', function (event) {
+        if (event.ctrlKey) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+
+    window.addEventListener('keydown', function (event) {
+        if (event.ctrlKey && (event.key === '+' || event.key === '-' || event.key === '=' || event.key === '0')) {
+            event.preventDefault();
+        }
+    });
+
+    document.addEventListener('gesturestart', function (event) {
+        event.preventDefault();
+    });
+</script>
+</html>
