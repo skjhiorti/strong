@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>现有投资 - 信宸资本</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            overflow-y: auto;
+            scrollbar-width: none; 
+            -ms-overflow-style: none; 
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #555555; /* 深灰色高级背景 */
+            color: #ffffff;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 顶部导航栏（深色背景适配） */
+        .navbar {
+            position: relative;
+            width: 100%;
+            height: 90px; 
+            display: flex;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1500px;
+            height: 100%;
+            padding: 0 clamp(20px, 3vw, 60px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0; 
+            background-color: rgba(60, 60, 60, 0.96); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: height 0.3s ease;
+            z-index: -1; 
+        }
+
+        .navbar:has(.has-dropdown:hover)::before {
+            height: 165px; 
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .real-logo {
+            height: 40px;
+            object-fit: contain;
+            filter: brightness(10); 
+            transition: filter 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: clamp(10px, 1.8vw, 35px);
+            align-items: center;
+            height: 100%;
+            flex-shrink: 0;
+        }
+
+        .nav-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item > a {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: clamp(12px, 1vw, 15px);
+            white-space: nowrap;
+            opacity: 0.9;
+            transition: color 0.3s ease;
+        }
+
+        .navbar:has(.has-dropdown:hover) .nav-item > a {
+            color: #dddddd;
+            opacity: 1;
+        }
+
+        .navbar:has(.has-dropdown:hover) .nav-item > a:hover {
+            color: #ffffff;
+        }
+
+        .arrow {
+            font-size: 11px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .has-dropdown:hover .arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 75px; 
+            left: 0; 
+            min-width: 160px;
+            width: max-content; 
+            display: flex;
+            flex-direction: column;
+            gap: 10px; 
+            padding-top: 5px; 
+            background-color: transparent; 
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease;
+        }
+
+        .has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0; 
+            color: #cccccc !important; 
+            text-decoration: none;
+            font-size: 14px;
+            white-space: nowrap;
+            line-height: 1.2; 
+            transition: color 0.2s ease;
+        }
+
+        .dropdown-menu a:hover {
+            color: #ffffff !important; 
+        }
+
+        .lang-switch > a {
+            display: flex !important;
+            align-items: center !important;
+            white-space: nowrap !important;
+        }
+
+        .lang-switch {
+            margin-left: 5px;
+        }
+
+        /* 现有投资页面正文区 */
+        .investments-content-section {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 60px 120px 60px;
+        }
+
+        .page-title {
+            font-size: 42px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .intro-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #cccccc;
+            margin-bottom: 70px;
+            letter-spacing: 0.5px;
+        }
+
+        /* 企业 Logo 卡片网格（4列布局，共33个） */
+        .investments-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .investment-card {
+            background-color: #ffffff;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .investment-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+
+        .investment-card img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* 底部 Footer 板块样式 */
+        .footer-section {
+            width: 100%;
+            background-color: #444444;
+            color: #ffffff;
+            padding: 70px 0 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-container {
+            width: 100%;
+            max-width: 1550px;
+            padding: 0 60px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-logo-col img {
+            height: 45px;
+            object-fit: contain;
+            filter: brightness(10);
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-col h4 {
+            font-size: 15px;
+            font-weight: 500;
+            color: #ffffff;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .footer-col a {
+            color: #cccccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .footer-col a:hover {
+            color: #ffffff;
+        }
+
+        .footer-divider {
+            width: 100%;
+            max-width: 1430px;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 60px 0 30px 0;
+        }
+
+        .footer-bottom {
+            width: 100%;
+            max-width: 1550px;
+            padding: 0 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #aaaaaa;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-bottom-links a {
+            color: #aaaaaa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航栏 -->
+    <div class="hero-wrapper">
+        <header class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="https://www.trustarcapital.com/web/files/uploadimage/202408281356110.png" alt="信宸资本" class="real-logo">
+                </div>
+                
+                <nav class="nav-links">
+                    <div class="nav-item">
+                        <a href="index.html" data-zh="首页" data-en="Home">首页</a>
+                    </div>
+                    
+                    <div class="nav-item has-dropdown">
+                        <a href="#"><span data-zh="关于我们" data-en="About Us">关于我们</span> <span class="arrow">▾</span></a>
+                        <div class="dropdown-menu">
+                            <a href="about.html" data-zh="概述" data-en="Company Profile">概述</a>
+                            <a href="team.html" data-zh="团队" data-en="Team">团队</a>
+                            <a href="esg.html" data-zh="环境、社会及治理" data-en="ESG">环境、社会及治理</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item has-dropdown">
+                        <a href="#"><span data-zh="投资策略" data-en="Investment Strategy">投资策略</span> <span class="arrow">▾</span></a>
+                        <div class="dropdown-menu">
+                            <a href="main-funds.html" data-zh="信宸主基金" data-en="Trustar Main Funds">信宸主基金</a>
+                            <a href="growth-funds.html" data-zh="信宸成长基金" data-en="Trustar Growth Funds">信宸成长基金</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item has-dropdown">
+                        <a href="#"><span data-zh="投资组合企业" data-en="Portfolio">投资组合企业</span> <span class="arrow">▾</span></a>
+                        <div class="dropdown-menu">
+                            <a href="current-investments.html" data-zh="现有投资" data-en="Current Portfolio">现有投资</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item">
+                        <a href="news.html" data-zh="新闻和观点" data-en="News & Insights">新闻和观点</a>
+                    </div>
+                    
+                    <div class="nav-item">
+                        <a href="contact.html" data-zh="联系我们" data-en="Contact Us">联系我们</a>
+                    </div>
+                    
+                    <div class="nav-item has-dropdown lang-switch">
+                        <a href="#">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right: 5px;">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                            <span id="langText">EN</span> <span class="arrow">▾</span>
+                        </a>
+                        <div class="dropdown-menu" style="min-width: 80px;">
+                            <a href="#" onclick="switchLang('zh')">中文</a>
+                            <a href="#" onclick="switchLang('en')">English</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+    </div>
+
+    <!-- 现有投资正文及 33 个企业 Logo 网格 -->
+    <main class="investments-content-section">
+        <h1 class="page-title" data-zh="现有投资" data-en="Current Investments">现有投资</h1>
+        <p class="intro-text" data-zh="以下是我们现有投资的企业的一部分：" data-en="Below is a selection of our current portfolio companies:">以下是我们现有投资的企业的一部分：</p>
+
+        <!-- 33个企业卡片网格 -->
+        <div class="investments-grid">
+            <!-- 1 -->
+            <div class="investment-card"><img src="	https://www.trustarcapital.com/web/files/uploadimage/1118/Amoy%20Foods.jpg" alt="企业1"></div>
+            <!-- 2 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/AsiaInfo.jpg" alt="企业2"></div>
+            <!-- 3 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Axilone.jpg" alt="企业3"></div>
+            <!-- 4 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Bytedance.jpg" alt="企业4"></div>
+            <!-- 5 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/CBPO.jpg" alt="企业5"></div>
+            <!-- 6 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/CIBT Global, Inc.jpg" alt="企业6"></div>
+            <!-- 7 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/eBeauty.jpg" alt="企业7"></div>
+            <!-- 8 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Erno Laszlo.jpg" alt="企业8"></div>
+            <!-- 9 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Universal Medical.jpg" alt="企业9"></div>
+            <!-- 10 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Genesis Medtech.jpg" alt="企业10"></div>
+            <!-- 11 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Guilong Pharmaceutical.jpg" alt="企业11"></div>
+            <!-- 12 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/I2Cool.jpg" alt="企业12"></div>
+            <!-- 13 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Intramco.jpg" alt="企业13"></div>
+            <!-- 14 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/JD Finance.jpg" alt="企业14"></div>
+            <!-- 15 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Jissbon.jpg" alt="企业15"></div>
+            <!-- 16 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Kaneko Shoten.jpg" alt="企业16"></div>
+            <!-- 17 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/LELO.jpg" alt="企业17"></div>
+            <!-- 18 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/LinkLogis.jpg" alt="企业18"></div>
+            <!-- 19 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/202506201732390.jpg" alt="企业19"></div>
+            <!-- 20 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Mcdonald's China.jpg" alt="企业20"></div>
+            <!-- 21 -->
+            <div class="investment-card"><img src="http://ztyh-files.oss-cn-beijing.aliyuncs.com/web/files/uploadimage/202411201808420.jpg" alt="企业21"></div>
+            <!-- 22 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Rootnet Technology.jpg" alt="企业22"></div>
+            <!-- 23 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Salion Foods.jpg" alt="企业23"></div>
+            <!-- 24 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/ScentAir.jpg" alt="企业24"></div>
+            <!-- 25 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Shugao.jpg" alt="企业25"></div>
+            <!-- 26 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Trilogy.jpg" alt="企业26"></div>
+            <!-- 27 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Trustlink.jpg" alt="企业27"></div>
+            <!-- 28 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/TSK.jpg" alt="企业28"></div>
+            <!-- 29 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Veminsyn.jpg" alt="企业29"></div>
+            <!-- 30 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Wanda Commercial Management Group.jpg" alt="企业30"></div>
+            <!-- 31 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/YQN.jpg" alt="企业31"></div>
+            <!-- 32 -->
+            <div class="investment-card"><img src="http://ztyh-files.oss-cn-beijing.aliyuncs.com/web/files/uploadimage/202411201819470.jpg" alt="企业32"></div>
+            <!-- 33 -->
+            <div class="investment-card"><img src="https://www.trustarcapital.com/web/files/uploadimage/1118/Z-Trip.jpg" alt="企业33"></div>
+        </div>
+    </main>
+
+    <!-- 底部 Footer 板块 -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-logo-col">
+                <img src="https://www.trustarcapital.com/web/files/uploadimage/202408281356110.png" alt="信宸资本">
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="首页" data-en="Home">首页</h4>
+                <a href="index.html" data-zh="简介" data-en="Overview">简介</a>
+                <a href="#" data-zh="代表性投资" data-en="Representative Investments">代表性投资</a>
+                <a href="#" data-zh="最新消息" data-en="Latest News">最新消息</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="关于我们" data-en="About Us">关于我们</h4>
+                <a href="about.html" data-zh="概述" data-en="Profile">概述</a>
+                <a href="team.html" data-zh="团队" data-en="Our Team">团队</a>
+                <a href="esg.html" data-zh="环境、社会及治理" data-en="ESG">环境、社会及治理</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="投资策略" data-en="Investment Strategy">投资策略</h4>
+                <a href="main-funds.html" data-zh="信宸主基金" data-en="Trustar Capital Partners">Trustar Capital Partners</a>
+                <a href="growth-funds.html" data-zh="信宸成长基金" data-en="Trustar Growth Partners">Trustar Growth Partners</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="投资组合企业" data-en="Portfolio">投资组合企业</h4>
+                <a href="current-investments.html" data-zh="现有投资" data-en="Current Investments">现有投资</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="新闻和观点" data-en="News & Insights">新闻与洞察</h4>
+                <a href="news.html" data-zh="新闻和观点" data-en="News & Insights">新闻与见解</a>
+            </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+            <span data-zh="© 2024 Trustar Capital Inc." data-en="© 2024 Trustar Capital Inc.">© 2024 Trustar Capital Inc.</span>
+            <div class="footer-bottom-links">
+                <a href="#" data-zh="版权所有" data-en="Copyright">版权所有</a>
+                <span>|</span>
+                <a href="#" data-zh="法律声明" data-en="Legal Disclaimer">法律声明</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+<script>
+    function switchLang(lang) {
+        const elements = document.querySelectorAll('[data-zh]');
+        
+        elements.forEach(el => {
+            if (lang === 'en') {
+                el.innerText = el.getAttribute('data-en');
+            } else {
+                el.innerText = el.getAttribute('data-zh');
+            }
+        });
+
+        const langText = document.getElementById('langText');
+        if (lang === 'en') {
+            langText.innerText = 'EN';
+        } else {
+            langText.innerText = '中文';
+        }
+        
+        localStorage.setItem('preferred_lang', lang);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('preferred_lang') || 'zh';
+        switchLang(savedLang);
+    });
+
+    document.addEventListener('wheel', function (event) {
+        if (event.ctrlKey) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+
+    window.addEventListener('keydown', function (event) {
+        if (event.ctrlKey && (event.key === '+' || event.key === '-' || event.key === '=' || event.key === '0')) {
+            event.preventDefault();
+        }
+    });
+
+    document.addEventListener('gesturestart', function (event) {
+        event.preventDefault();
+    });
+</script>
+</html>
