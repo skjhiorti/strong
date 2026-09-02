@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>信宸资本</title>
+    <link rel="icon" href="photo_2026-09-02_13-27-54.jpg" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            overflow-y: auto;
+            scrollbar-width: none; 
+            -ms-overflow-style: none; 
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #e5e5e5;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hero-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 700px;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
+                url('image.png'); 
+            background-size: cover;
+            background-position: center;
+            background-color: #b3b3b3; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            position: relative;
+            width: 100%;
+            height: 90px; 
+            display: flex;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1500px;
+            height: 100%;
+            padding: 0 clamp(20px, 3vw, 60px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .real-logo {
+            height: 40px;
+            object-fit: contain;
+            transition: filter 0.3s ease;
+        }
+
+        /* 汉堡按钮样式 */
+        .hamburger-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger-btn span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #ffffff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* 右侧滑出抽屉菜单（宽度缩小为 220px） */
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 220px; 
+            max-width: 75%;
+            height: 100vh;
+            background-color: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-left: 30px;
+            gap: 18px;
+            transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 1000;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            display: flex;
+        }
+
+        .nav-links.active {
+            right: 0;
+        }
+
+        .nav-links .nav-item {
+            height: auto !important;
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-links .nav-item > a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-decoration: none;
+            color: #ffffff !important;
+            font-size: 15px !important;
+            white-space: nowrap;
+            opacity: 0.9;
+            transition: color 0.3s ease, opacity 0.3s ease;
+            padding-right: 20px;
+        }
+
+        .nav-links .arrow {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        /* 侧边栏子菜单样式优化，改为点击或悬停均可展开，这里默认在侧边栏完整展示或紧凑排列 */
+        .nav-links .dropdown-menu {
+            position: static !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            background-color: transparent !important;
+            box-shadow: none !important;
+            padding-left: 15px;
+            padding-top: 6px;
+            gap: 6px;
+            display: flex !important;
+            flex-direction: column;
+        }
+
+        .nav-links .dropdown-menu a {
+            display: block;
+            padding: 0; 
+            color: #aaaaaa !important; 
+            text-decoration: none;
+            font-size: 13px !important;
+            white-space: nowrap;
+            line-height: 1.4; 
+            transition: color 0.2s ease;
+        }
+
+        .nav-links .dropdown-menu a:hover {
+            color: #ffffff !important; 
+        }
+
+        .hero-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .hero-content h1 {
+            color: #ffffff;
+            font-size: clamp(32px, 4vw, 56px);
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 1100px;
+            line-height: 1.3;
+            white-space: normal;
+        }
+
+        /* 代表性投资板块样式 */
+        .investment-section {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 130px 0 150px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 42px;
+            font-weight: 400;
+            color: #222222;
+            margin-bottom: 80px;
+            letter-spacing: 3px;
+            text-align: center;
+        }
+
+        .invest-grid-container {
+            width: 100%;
+            max-width: 1550px;
+            padding: 0 60px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 90px 70px; 
+            align-items: center;
+            justify-items: center;
+            margin-bottom: 100px;
+        }
+
+        .invest-item {
+            width: 100%;
+            height: 150px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .invest-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transform: scale(1.4); 
+            opacity: 0.9;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .invest-item img:hover {
+            opacity: 1;
+            transform: scale(1.48); 
+        }
+
+        .more-btn-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .more-btn {
+            display: inline-block;
+            padding: 16px 60px;
+            border: 1px solid #777777;
+            color: #333333;
+            text-decoration: none;
+            font-size: 16px;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            background-color: transparent;
+        }
+
+        .more-btn:hover {
+            border-color: #000000;
+            color: #000000;
+            background-color: #f5f5f5;
+        }
+
+        /* 最新消息板块样式 */
+        .news-section {
+            width: 100%;
+            background-color: #e5e5e5;
+            padding: 100px 0 140px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .news-header-container {
+            width: 100%;
+            max-width: 1550px;
+            padding: 0 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .news-title {
+            font-size: 42px;
+            font-weight: 400;
+            color: #222222;
+            letter-spacing: 2px;
+        }
+
+        .all-news-btn {
+            display: inline-block;
+            padding: 12px 35px;
+            border: 1px solid #999999;
+            color: #333333;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            background-color: transparent;
+        }
+
+        .all-news-btn:hover {
+            border-color: #000000;
+            color: #000000;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .news-content-container {
+            width: 100%;
+            max-width: 1550px;
+            padding: 0 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .news-featured-card {
+            position: relative;
+            width: 100%;
+            height: 550px;
+            background-color: #ffffff;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+
+        .news-featured-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .news-featured-card:hover img {
+            transform: scale(1.02);
+        }
+
+        .news-featured-overlay {
+            position: absolute;
+            bottom: 40px;
+            left: 50px;
+            width: 55%;
+            background-color: rgba(90, 90, 90, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 40px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+
+        .news-featured-overlay p {
+            color: #ffffff;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        .news-date {
+            color: #cccccc;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .news-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .news-card {
+            position: relative;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .news-card-img-wrapper {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .news-card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .news-card:hover img {
+            transform: scale(1.03);
+        }
+
+        .news-card-info {
+            background-color: rgba(90, 90, 90, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 30px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 15px;
+            flex: 1;
+            min-height: 200px;
+        }
+
+        .news-card-info p {
+            color: #ffffff;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        /* 底部 Footer 板块样式 */
+        .footer-section {
+            width: 100%;
+            background-color: #555555;
+            color: #ffffff;
+            padding: 70px 0 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-container {
+            width: 100%;
+            max-width: 1550px;
+            padding: 0 60px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-logo-col img {
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-col h4 {
+            font-size: 15px;
+            font-weight: 500;
+            color: #ffffff;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .footer-col a {
+            color: #cccccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .footer-col a:hover {
+            color: #ffffff;
+        }
+
+        .footer-divider {
+            width: 100%;
+            max-width: 1430px;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 60px 0 30px 0;
+        }
+
+        .footer-bottom {
+            width: 100%;
+            max-width: 1550px;
+            padding: 0 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #aaaaaa;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-bottom-links a {
+            color: #aaaaaa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #ffffff;
+        }
+
+        /* 底部悬浮圆角半透明磨砂横栏样式 */
+        .fixed-bottom-bar {
+            position: fixed;
+            bottom: 25px; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1240px; 
+            background: rgba(3, 5, 10, 0.75); 
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px);
+            color: #ffffff;
+            padding: 14px 35px;
+            border-radius: 50px; 
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); 
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fixed-bottom-bar:hover {
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+            background: rgba(22, 49, 92, 0.85); 
+        }
+
+        .fixed-bottom-content {
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.5;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+
+        body {
+            padding-bottom: 80px; 
+        }
+
+        /* 移动端自适应适配优化 */
+        @media screen and (max-width: 768px) {
+            .navbar {
+                height: 70px;
+            }
+            .nav-container {
+                padding: 0 15px;
+            }
+            .hero-content h1 {
+                font-size: 24px !important;
+                padding: 0 15px;
+                letter-spacing: 1px;
+            }
+            .invest-grid-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 30px 20px !important;
+                padding: 0 20px !important;
+            }
+            .section-title {
+                font-size: 28px !important;
+                margin-bottom: 40px !important;
+            }
+            .news-header-container {
+                flex-direction: column;
+                gap: 15px;
+                padding: 0 20px !important;
+            }
+            .news-content-container {
+                padding: 0 20px !important;
+            }
+            .news-featured-card {
+                height: 320px !important;
+            }
+            .news-featured-overlay {
+                width: 90% !important;
+                left: 5% !important;
+                bottom: 20px !important;
+                padding: 20px !important;
+            }
+            .news-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .fixed-bottom-bar {
+                width: 92% !important;
+                left: 4% !important;
+                transform: none !important;
+                bottom: 15px !important;
+                padding: 10px 15px !important;
+            }
+            .fixed-bottom-content {
+                font-size: 11px !important;
+            }
+            .footer-container {
+                grid-template-columns: 1fr !important;
+                gap: 30px !important;
+                padding: 0 20px !important;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                padding: 0 20px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-wrapper">
+        <header class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="https://www.trustarcapital.com/web/files/uploadimage/202408281356110.png" alt="信宸资本" class="real-logo">
+                </div>
+                
+                <!-- 纯净汉堡按钮（点击呼出侧边栏） -->
+                <div class="hamburger-btn" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <!-- 侧边折叠导航菜单（全部收纳在这里，包含语言切换） -->
+                <nav class="nav-links">
+                    <div class="nav-item">
+                        <a href="index.html" data-zh="首页" data-en="Home">首页</a>
+                    </div>
+                    
+                    <div class="nav-item has-dropdown">
+                        <a href="#"><span data-zh="关于我们" data-en="About Us">关于我们</span> <span class="arrow">▾</span></a>
+                        <div class="dropdown-menu">
+                            <a href="about.html" data-zh="概述" data-en="Company Profile">概述</a>
+                            <a href="team.html" data-zh="团队" data-en="Team">团队</a>
+                            <a href="esg.html" data-zh="环境、社会及治理" data-en="ESG">环境、社会及治理</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item has-dropdown">
+                        <a href="#"><span data-zh="投资策略" data-en="Investment Strategy">投资策略</span> <span class="arrow">▾</span></a>
+                        <div class="dropdown-menu">
+                            <a href="main-funds.html" data-zh="信宸主基金" data-en="Trustar Main Funds">信宸主基金</a>
+                            <a href="growth-funds.html" data-zh="信宸成长基金" data-en="Trustar Growth Funds">信宸成长基金</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item has-dropdown">
+                        <a href="#"><span data-zh="投资组合企业" data-en="Portfolio">投资组合企业</span> <span class="arrow">▾</span></a>
+                        <div class="dropdown-menu">
+                            <a href="current-investments.html" data-zh="现有投资" data-en="Current Portfolio">现有投资</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item">
+                        <a href="news.html" data-zh="新闻和观点" data-en="News & Insights">新闻和观点</a>
+                    </div>
+                    
+                    <div class="nav-item">
+                        <a href="contact.html" data-zh="联系我们" data-en="Contact Us">联系我们</a>
+                    </div>
+
+                    <!-- 语言切换选项也放入菜单中 -->
+                    <div class="nav-item has-dropdown lang-switch">
+                        <a href="#">
+                            <span><span id="langText">EN</span> 语言切换</span> <span class="arrow">▾</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="#" onclick="switchLang('zh')">中文</a>
+                            <a href="#" onclick="switchLang('en')">English</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <div class="hero-content">
+            <h1 data-zh="投资于亚洲经济的增长与活力" data-en="Investing in the Growth and Dynamism of the Asian Economy">投资于亚洲经济的增长与活力</h1>
+        </div>
+    </div>
+
+    <section class="investment-section">
+        <h2 class="section-title" data-zh="代表性投资" data-en="Representative Investments">代表性投资</h2>
+        
+        <div class="invest-grid-container">
+            <div class="invest-item"><img src="https://www.trustarcapital.com/web/files/uploadimage/202410221840010.jpg" alt="麦当劳"></div>
+            <div class="invest-item"><img src="https://www.trustarcapital.com/web/files/uploadimage/SF%20Holding.jpg" alt="顺丰控股"></div>
+            <div class="invest-item"><img src="https://www.trustarcapital.com/web/files/uploadimage/202411011805030.jpg" alt="分众传媒"></div>
+            <div class="invest-item"><img src="https://www.trustarcapital.com/web/files/uploadimage/OmniVision.jpg" alt="豪威集团"></div>
+            
+            <div class="invest-item"><img src="https://www.trustarcapital.com/web/files/uploadimage/202410221838420.jpg" alt="亚信科技"></div>
+            <div class="invest-item"><img src="https://www.trustarcapital.com/web/files/uploadimage/Axilone.jpg" alt="AXILONE"></div>
+            <div class="invest-item"><img src="https://www.trustarcapital.com/web/files/uploadimage/Jissbon.jpg" alt="杰士邦"></div>
+            <div class="invest-item"><img src="https://www.trustarcapital.com/web/files/uploadimage/Hygeia.jpg" alt="海吉亚"></div>
+
+            <div class="invest-item"><img src="https://www.trustarcapital.com/web/files/uploadimage/Wanda%20Commercial%20Management.jpg" alt="万达商管集团"></div>
+            <div class="invest-item"><img src="https://www.trustarcapital.com/web/files/uploadimage/202506201731280.jpg" alt="LOSCAM"></div>
+            <div class="invest-item"><img src="https://www.trustarcapital.com/web/files/uploadimage/CBPO.jpg" alt="泰邦生物集团"></div>
+            <div class="invest-item"><img src="https://www.trustarcapital.com/web/files/uploadimage/King%20Koil.jpg" alt="金可儿床垫"></div>
+        </div>
+
+        <div class="more-btn-wrapper">
+            <a href="current-investments.html" class="more-btn" data-zh="了解更多" data-en="Learn More">了解更多</a>
+        </div>
+    </section>
+
+    <section class="news-section">
+        <div class="news-header-container">
+            <h2 class="news-title" data-zh="最新消息" data-en="Latest News">最新消息</h2>
+            <a href="news.html" class="all-news-btn" data-zh="查看所有新闻" data-en="View All News">查看所有新闻</a>
+        </div>
+
+        <div class="news-content-container">
+            <div class="news-featured-card" onclick="location.href='news-detail.html'">
+                <img src="https://www.trustarcapital.com/web/files/uploadimage/202601271716330.jpg" alt="头条新闻">
+                <div class="news-featured-overlay">
+                    <p data-zh="信宸成员资本企业嘉信立恒参与新大正推进资产重组" data-en="Trustar Capital portfolio company Citic Services participates in New Grand Union restructuring">信宸成员资本企业嘉信立恒参与新大正推进资产重组</p>
+                    <span class="news-date">2026-01-27</span>
+                </div>
+            </div>
+
+            <div class="news-grid">
+                <div class="news-card" onclick="location.href='news-detail-2.html'">
+                    <div class="news-card-img-wrapper">
+                        <img src="https://www.trustarcapital.com/web/files/uploadimage/202510231251160.jpg" alt="新闻1">
+                    </div>
+                    <div class="news-card-info">
+                        <p data-zh="穆巴达拉参与信宸资本、方源资本及中国外运成为路凯国际战略股东" data-en="Mubadala participates as strategic shareholder in Loscam alongside Trustar Capital, FountainVest and Sinotrans">穆巴达拉参与信宸资本、方源资本及中国外运成为路凯国际战略股东</p>
+                        <span class="news-date">2025-10-22</span>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-card-img-wrapper">
+                        <img src="https://www.trustarcapital.com/web/files/uploadimage/202409051654120.jpg" alt="新闻2">
+                    </div>
+                    <div class="news-card-info">
+                        <p data-zh="株式会社TAUNS成功登陆东京证券交易所标准市场" data-en="Kabushiki Kaisha TAUNS Successfully Listed on the Tokyo Stock Exchange Standard Market">株式会社TAUNS成功登陆东京证券交易所标准市场</p>
+                        <span class="news-date">2024-06-20</span>
+                    </div>
+                </div>
+
+                <div class="news-card" onclick="location.href='news-detail-3.html'">
+                    <div class="news-card-img-wrapper">
+                        <img src="https://ztyh-files.oss-cn-beijing.aliyuncs.com/web/files/uploadimage/202411191443060.jpeg" alt="新闻3">
+                    </div>
+                    <div class="news-card-info">
+                        <p data-zh="中信宣布资本加码助力中国加快金拱门迈入新发展阶段" data-en="CITIC announces additional capital injection to accelerate McDonald's China into a new stage of development">中信宣布资本加码助力中国加快金拱门迈入新发展阶段</p>
+                        <span class="news-date">2024年10月21日</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-logo-col">
+                <img src="https://www.trustarcapital.com/web/files/uploadimage/202408281356110.png" alt="信宸资本">
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="首页" data-en="Home">首页</h4>
+                <a href="index.html" data-zh="简介" data-en="Overview">简介</a>
+                <a href="#" data-zh="代表性投资" data-en="Representative Investments">代表性投资</a>
+                <a href="news.html" data-zh="最新消息" data-en="Latest News">最新消息</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="关于我们" data-en="About Us">关于我们</h4>
+                <a href="about.html" data-zh="概述" data-en="Profile">概述</a>
+                <a href="team.html" data-zh="团队" data-en="Our Team">团队</a>
+                <a href="esg.html" data-zh="环境、社会及治理" data-en="ESG">环境、社会及治理</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="投资策略" data-en="Investment Strategy">投资策略</h4>
+                <a href="main-funds.html" data-zh="信宸主基金" data-en="Trustar Capital Partners">Trustar Capital Partners</a>
+                <a href="growth-funds.html" data-zh="信宸成长基金" data-en="Trustar Growth Partners">Trustar Growth Partners</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="投资组合企业" data-en="Portfolio">投资组合企业</h4>
+                <a href="current-investments.html" data-zh="现有投资" data-en="Current Investments">现有投资</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="新闻和观点" data-en="News & Insights">新闻和观点</h4>
+                <a href="news.html" data-zh="新闻和观点" data-en="News & Insights">新闻和观点</a>
+            </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+            <span data-zh="© 2024 Trustar Capital Inc." data-en="© 2024 Trustar Capital Inc.">© 2024 Trustar Capital Inc.</span>
+            <div class="footer-bottom-links">
+                <a href="#" data-zh="版权所有" data-en="Copyright">版权所有</a>
+                <span>|</span>
+                <a href="#" data-zh="法律声明" data-en="Legal Disclaimer">法律声明</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 全局固定底部横栏按钮（点击跳转到 contact.html） -->
+    <a href="contact.html" class="fixed-bottom-bar" style="text-decoration: none;">
+        <div class="fixed-bottom-content" 
+             data-zh="我们提供资金。如果您有项目、本地资源、劳动力或设施，我们诚邀合作，实现共同增长与成功。 —— 立即联系我们" 
+             data-en="We provide the capital. If you have a project, local resources, workforce, or facilities, we are open to partnership opportunities for mutual growth and success. —— Contact Us Now">
+             We provide the capital. If you have a project, local resources, workforce, or facilities, we are open to partnership opportunities for mutual growth and success. —— Contact Us Now
+        </div>
+    </a> 
+</body>
+
+<script>
+    // 1. 禁用右键菜单
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault(); 
+    });
+
+    // 2. 禁用 F12、Ctrl+Shift+I、Ctrl+Shift+C、Ctrl+U 等开发者快捷键
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'F12' || e.keyCode === 123) {
+            e.preventDefault();
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+            e.preventDefault();
+            return false;
+        }
+        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+            e.preventDefault();
+            return false;
+        }
+        if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    setInterval(function() {
+        const check = window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160;
+        if (check) {
+            document.body.innerHTML = "<div style='display:flex;justify-content:center;align-items:center;height:100vh;font-size:24px;color:#333;'>检测到开发者工具已打开，为了保护版权，页面已锁定！</div>";
+        }
+    }, 1000);
+</script>
+<script>
+    function switchLang(lang) {
+        const elements = document.querySelectorAll('[data-zh]');
+        
+        elements.forEach(el => {
+            if (lang === 'en') {
+                el.innerText = el.getAttribute('data-en');
+            } else {
+                el.innerText = el.getAttribute('data-zh');
+            }
+        });
+
+        const langText = document.getElementById('langText');
+        if (lang === 'en') {
+            langText.innerText = 'EN';
+        } else {
+            langText.innerText = '中文';
+        }
+        
+        localStorage.setItem('preferred_lang', lang);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('preferred_lang') || 'zh';
+        switchLang(savedLang);
+    });
+
+    document.addEventListener('wheel', function (event) {
+        if (event.ctrlKey) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+
+    window.addEventListener('keydown', function (event) {
+        if (event.ctrlKey && (event.key === '+' || event.key === '-' || event.key === '=' || event.key === '0')) {
+            event.preventDefault();
+        }
+    });
+
+    document.addEventListener('gesturestart', function (event) {
+        event.preventDefault();
+    });
+
+    function toggleMobileMenu() {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.classList.toggle('active');
+    }
+</script>
+</html>
