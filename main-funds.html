@@ -331,6 +331,90 @@
         .footer-bottom-links a:hover {
             color: #ffffff;
         }
+        /* 移动端自适应适配优化 */
+@media screen and (max-width: 768px) {
+    /* 1. 调整导航栏高度与内边距，防止菜单挤压 */
+    .navbar {
+        height: 70px;
+    }
+    .nav-container {
+        padding: 0 15px;
+    }
+    /* 隐藏电脑端复杂导航文字或改为移动端简易显示，防止换行溢出 */
+    .nav-links {
+        gap: 10px;
+        overflow-x: auto;
+        max-width: 70%;
+    }
+    .nav-item > a {
+        font-size: 12px;
+    }
+
+    /* 2. 调整主标题文字大小，让手机屏幕能完整显示 */
+    .hero-content h1 {
+        font-size: 24px !important;
+        padding: 0 15px;
+        letter-spacing: 1px;
+    }
+
+    /* 3. 代表性投资板块由4列改为2列，防止图片过大撑破屏幕 */
+    .invest-grid-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 30px 20px !important;
+        padding: 0 20px !important;
+    }
+    .section-title {
+        font-size: 28px !important;
+        margin-bottom: 40px !important;
+    }
+
+    /* 4. 最新消息网格调整为单列上下排列 */
+    .news-header-container {
+        flex-direction: column;
+        gap: 15px;
+        padding: 0 20px !important;
+    }
+    .news-content-container {
+        padding: 0 20px !important;
+    }
+    .news-featured-card {
+        height: 320px !important;
+    }
+    .news-featured-overlay {
+        width: 90% !important;
+        left: 5% !important;
+        bottom: 20px !important;
+        padding: 20px !important;
+    }
+    .news-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* 5. 底部悬浮横栏改为自适应宽度，避免超出手机屏幕两边 */
+    .fixed-bottom-bar {
+        width: 92% !important;
+        left: 4% !important;
+        transform: none !important;
+        bottom: 15px !important;
+        padding: 10px 15px !important;
+    }
+    .fixed-bottom-content {
+        font-size: 11px !important;
+    }
+
+    /* 6. 底部 Footer 版权与链接改为竖排 */
+    .footer-container {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        padding: 0 20px !important;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 0 20px !important;
+    }
+}
     </style>
 </head>
 <body>
