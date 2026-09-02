@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>联系我们</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            min-width: 1440px !important;
+            height: 100%;
+            overflow-x: auto !important;
+            overflow-y: auto;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 顶部导航栏 */
+        .navbar {
+            position: relative;
+            width: 100%;
+            height: 90px; 
+            display: flex;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .nav-container {
+            width: 1300px !important;
+            max-width: none !important;
+            height: 100%;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0; 
+            background-color: rgba(255, 255, 255, 0.96); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: height 0.3s ease;
+            z-index: -1; 
+        }
+
+        .navbar:has(.has-dropdown:hover)::before {
+            height: 175px; 
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .real-logo {
+            height: 40px;
+            object-fit: contain;
+            filter: brightness(0.2); 
+            transition: filter 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+            height: 100%;
+            flex-shrink: 0;
+        }
+
+        .nav-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item > a {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            color: #333333;
+            font-size: 15px;
+            white-space: nowrap;
+            opacity: 0.9;
+            transition: color 0.3s ease;
+        }
+
+        .navbar:has(.has-dropdown:hover) .nav-item > a {
+            color: #555555;
+            opacity: 1;
+        }
+
+        .navbar:has(.has-dropdown:hover) .nav-item > a:hover {
+            color: #000000;
+        }
+
+        .arrow {
+            font-size: 11px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .has-dropdown:hover .arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 65px; 
+            left: 0; 
+            min-width: 160px;
+            width: max-content; 
+            display: flex;
+            flex-direction: column;
+            gap: 12px; 
+            padding-top: 5px; 
+            background-color: transparent; 
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease;
+            z-index: 105;
+        }
+
+        .has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0; 
+            color: #666666 !important; 
+            text-decoration: none;
+            font-size: 14px;
+            white-space: nowrap;
+            line-height: 1.4; 
+            transition: color 0.2s ease;
+        }
+
+        .dropdown-menu a:hover {
+            color: #000000 !important; 
+        }
+
+        .lang-switch > a {
+            display: flex !important;
+            align-items: center !important;
+            white-space: nowrap !important;
+        }
+
+        .lang-switch {
+            margin-left: 5px;
+        }
+
+        /* 联系我们页面主体排版 */
+        .contact-content-section {
+            width: 1300px;
+            margin: 0 auto;
+            padding: 60px 40px 140px 40px;
+        }
+
+        .page-title {
+            font-size: 42px;
+            font-weight: 400;
+            color: #222222;
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+        }
+
+        /* 以社交/通讯图标为主体的三大板块 */
+        .social-main-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            margin-top: 20px;
+        }
+
+        /* 将整个卡片设为超链接样式 */
+        .social-card {
+            background-color: #fcfcfc;
+            border: 1px solid #eaeaea;
+            padding: 50px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .social-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border-color: #3b73c8;
+        }
+
+        .social-icon-wrapper {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .social-icon-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .social-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #222222;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        /* 底部“立即联系”按钮样式 */
+        .social-btn {
+            width: 100%;
+            padding: 12px 20px;
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 6px;
+            font-size: 15px;
+            color: #3b73c8;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .social-card:hover .social-btn {
+            background-color: #3b73c8;
+            color: #ffffff;
+            border-color: #3b73c8;
+        }
+
+        /* 底部 Footer 板块样式 */
+        .footer-section {
+            width: 100%;
+            background-color: #555555;
+            color: #ffffff;
+            padding: 70px 0 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-container {
+            width: 1300px;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-logo-col img {
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-col h4 {
+            font-size: 15px;
+            font-weight: 500;
+            color: #ffffff;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .footer-col a {
+            color: #cccccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .footer-col a:hover {
+            color: #ffffff;
+        }
+
+        .footer-divider {
+            width: 1300px;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 60px auto 30px auto;
+        }
+
+        .footer-bottom {
+            width: 1300px;
+            padding: 0 40px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #aaaaaa;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-bottom-links a {
+            color: #aaaaaa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航栏 -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="https://www.trustarcapital.com/web/files/uploadimage/202408281356110.png" alt="信宸资本" class="real-logo">
+                </a>
+            </div>
+            
+            <nav class="nav-links">
+                <div class="nav-item">
+                    <a href="index.html" data-zh="首页" data-en="Home">首页</a>
+                </div>
+                
+                <div class="nav-item has-dropdown">
+                    <a href="#"><span data-zh="关于我们" data-en="About Us">关于我们</span> <span class="arrow">▾</span></a>
+                    <div class="dropdown-menu">
+                        <a href="about.html" data-zh="概述" data-en="Company Profile">概述</a>
+                        <a href="team.html" data-zh="团队" data-en="Team">团队</a>
+                        <a href="esg.html" data-zh="环境,社会及治理" data-en="ESG">环境、社会及治理</a>
+                    </div>
+                </div>
+
+                <div class="nav-item has-dropdown">
+                    <a href="#"><span data-zh="投资策略" data-en="Investment Strategy">投资策略</span> <span class="arrow">▾</span></a>
+                    <div class="dropdown-menu">
+                        <a href="main-funds.html" data-zh="信宸主基金" data-en="Trustar Main Funds">信宸主基金</a>
+                        <a href="growth-funds.html" data-zh="信宸成长基金" data-en="Trustar Growth Funds">信宸成长基金</a>
+                    </div>
+                </div>
+
+                <div class="nav-item has-dropdown">
+                    <a href="#"><span data-zh="投资组合企业" data-en="Portfolio">投资组合企业</span> <span class="arrow">▾</span></a>
+                    <div class="dropdown-menu">
+                        <a href="current-investments.html" data-zh="现有投资" data-en="Current Portfolio">现有投资</a>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <a href="news.html" data-zh="新闻和观点" data-en="News & Insights">新闻和观点</a>
+                </div>
+                
+                <div class="nav-item">
+                    <a href="contact.html" data-zh="联系我们" data-en="Contact Us">联系我们</a>
+                </div>
+                
+                <div class="nav-item has-dropdown lang-switch">
+                    <a href="#">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right: 5px;">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <span id="langText">EN</span> <span class="arrow">▾</span>
+                    </a>
+                    <div class="dropdown-menu" style="min-width: 80px;">
+                        <a href="#" onclick="switchLang('zh')">中文</a>
+                        <a href="#" onclick="switchLang('en')">English</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 联系我们正文区 -->
+    <main class="contact-content-section">
+        <h1 class="page-title" data-zh="联系方式" data-en="Contact Us">联系方式</h1>
+        
+        <!-- 三大板块网格 -->
+        <div class="social-main-grid">
+            
+            <!-- 1. WhatsApp 卡片 (整个卡片可点击) -->
+            <a href="https://wa.me/84564206901" target="_blank" class="social-card">
+                <div class="social-icon-wrapper">
+                    <img src="images/image copy 2.png" alt="WhatsApp">
+                </div>
+                <div class="social-title" data-zh="WhatsApp" data-en="WhatsApp">WhatsApp</div>
+                <div class="social-btn" data-zh="立即联系" data-en="Contact Now">立即联系</div>
+            </a>
+
+            <!-- 2. Telegram 卡片 (整个卡片可点击) -->
+            <a href="https://t.me/ruike21" target="_blank" class="social-card">
+                <div class="social-icon-wrapper">
+                    <img src="images/image copy.png" alt="Telegram">
+                </div>
+                <div class="social-title" data-zh="Telegram" data-en="Telegram">Telegram</div>
+                <div class="social-btn" data-zh="立即联系" data-en="Contact Now">立即联系</div>
+            </a>
+
+
+            <!-- 3. Zalo 卡片 (整个卡片可点击) -->
+            <a href="https://zalo.me/" target="_blank" class="social-card">
+                <div class="social-icon-wrapper">
+                    <img src="images/image copy 3.png" alt="Zalo">
+                </div>
+                <div class="social-title" data-zh="Zalo" data-en="Zalo">Zalo</div>
+                <div class="social-btn" data-zh="立即联系" data-en="Contact Now">立即联系</div>
+            </a>
+        </div>
+        <!-- 4.lai的联系方式 (整个卡片可点击) -->
+        <div class="social-main-grid">
+            <a href="https://wa.me/" target="_blank" class="social-card">
+                <div class="social-icon-wrapper">
+                    <img src="images/image copy 4.png" alt="WhatsApp">
+                </div>
+                <div class="social-title" data-zh="LINE" data-en="WhatsApp">WhatsApp</div>
+                <div class="social-btn" data-zh="立即联系" data-en="Contact Now">立即联系</div>
+            </a>
+        </div>
+    </main>
+
+    <!-- 底部 Footer 板块 -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-logo-col">
+                <img src="https://www.trustarcapital.com/web/files/uploadimage/202408281356110.png" alt="信宸资本">
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="首页" data-en="Home">首页</h4>
+                <a href="index.html" data-zh="简介" data-en="Overview">简介</a>
+                <a href="#" data-zh="代表性投资" data-en="Representative Investments">代表性投资</a>
+                <a href="news.html" data-zh="最新消息" data-en="Latest News">最新消息</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="关于我们" data-en="About Us">关于我们</h4>
+                <a href="about.html" data-zh="概述" data-en="Profile">概述</a>
+                <a href="team.html" data-zh="团队" data-en="Our Team">团队</a>
+                <a href="esg.html" data-zh="环境、社会及治理" data-en="ESG">环境、社会及治理</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="投资策略" data-en="Investment Strategy">投资策略</h4>
+                <a href="main-funds.html" data-zh="信宸主基金" data-en="Trustar Capital Partners">Trustar Capital Partners</a>
+                <a href="growth-funds.html" data-zh="信宸成长基金" data-en="Trustar Growth Partners">Trustar Growth Partners</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="投资组合企业" data-en="Portfolio">投资组合企业</h4>
+                <a href="current-investments.html" data-zh="现有投资" data-en="Current Investments">现有投资</a>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-zh="新闻和观点" data-en="News & Insights">新闻和观点</h4>
+                <a href="news.html" data-zh="新闻和观点" data-en="News & Insights">新闻和观点</a>
+            </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+            <span data-zh="© 2024 Trustar Capital Inc." data-en="© 2024 Trustar Capital Inc.">© 2024 Trustar Capital Inc.</span>
+            <div class="footer-bottom-links">
+                <a href="#" data-zh="版权所有" data-en="Copyright">版权所有</a>
+                <span>|</span>
+                <a href="#" data-zh="法律声明" data-en="Legal Disclaimer">法律声明</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+<script>
+    // 1. 禁用右键菜单
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault(); // 阻止默认的右键菜单弹出
+    });
+
+    // 2. 禁用 F12、Ctrl+Shift+I、Ctrl+Shift+C、Ctrl+U 等开发者快捷键
+    document.addEventListener('keydown', function (e) {
+        // 禁用 F12
+        if (e.key === 'F12' || e.keyCode === 123) {
+            e.preventDefault();
+            return false;
+        }
+        // 禁用 Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C (开发者工具)
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+            e.preventDefault();
+            return false;
+        }
+        // 禁用 Ctrl+U (查看网页源代码)
+        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+            e.preventDefault();
+            return false;
+        }
+        // 禁用 Ctrl+S (保存网页)
+        if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // 3. 进阶：检测开发者工具是否打开（如果打开则尝试通过死循环或控制台警告阻止调试，不过这一项慎用，有时会误伤正常用户）
+    setInterval(function() {
+        const check = window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160;
+        if (check) {
+            document.body.innerHTML = "<div style='display:flex;justify-content:center;align-items:center;height:100vh;font-size:24px;color:#333;'>检测到开发者工具已打开，为了保护版权，页面已锁定！</div>";
+        }
+    }, 1000);
+</script>
+<script>
+    function switchLang(lang) {
+        const elements = document.querySelectorAll('[data-zh]');
+        
+        elements.forEach(el => {
+            if (lang === 'en') {
+                if (el.getAttribute('data-en')) el.innerText = el.getAttribute('data-en');
+            } else {
+                if (el.getAttribute('data-zh')) el.innerText = el.getAttribute('data-zh');
+            }
+        });
+
+        const langText = document.getElementById('langText');
+        if (lang === 'en') {
+            langText.innerText = 'EN';
+        } else {
+            langText.innerText = '中文';
+        }
+        
+        localStorage.setItem('preferred_lang', lang);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('preferred_lang') || 'zh';
+        switchLang(savedLang);
+    });
+
+    document.addEventListener('wheel', function (event) {
+        if (event.ctrlKey) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+
+    window.addEventListener('keydown', function (event) {
+        if (event.ctrlKey && (event.key === '+' || event.key === '-' || event.key === '=' || event.key === '0')) {
+            event.preventDefault();
+        }
+    });
+
+    document.addEventListener('gesturestart', function (event) {
+        event.preventDefault();
+    });
+</script>
+</html>
